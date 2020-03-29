@@ -1,0 +1,16 @@
+/* .movie-list ul{
+    list-style: none;
+}
+.movie-list li{
+    display: inline;
+} */
+
+.fit-image{
+    width: 75%;
+    object-fit: cover;
+    height: 75% /* only if you want fixed height */
+}
+  
+.centre {
+    text-align: center
+  }

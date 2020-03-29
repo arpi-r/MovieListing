@@ -3,14 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DisplaylistComponent } from './displaylist/displaylist.component';
+
+import {NgxPaginationModule} from 'ngx-pagination';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DisplaylistComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    NgxPaginationModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
