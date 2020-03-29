@@ -18,18 +18,19 @@
             <tr>
                 <!-- <td> -->
                     <!-- <br> -->
-                    <td *ngFor="let r of results | paginate: { itemsPerPage: 3, currentPage: p }" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 centre">
+                    <th *ngFor="let r of results | paginate: { itemsPerPage: 3, currentPage: p }" class="centre">
                         {{r.title}}
-                    </td>
+                    </th>
                 <!-- </td> -->
-            </tr>
+            <!-- </tr> -->
             <tr>
-                <td *ngFor="let r of results | paginate: { itemsPerPage: 3, currentPage: p }" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 centre">
+                <td *ngFor="let r of results | paginate: { itemsPerPage: 3, currentPage: p }" class="centre">
                     <img src="https://image.tmdb.org/t/p/w500{{r.poster_path}}" alt="poster" class="img-responsive fit-image">
                 </td>
             </tr>
             
         </table>
+    </div>
     </div>
     <br><br>
     <div>
