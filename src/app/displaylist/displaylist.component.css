@@ -8,7 +8,7 @@
 .fit-image{
     width: 50%;
     object-fit: cover;
-    height: 50% /* only if you want fixed height */
+    height: auto;
 }
   
 .centre {
