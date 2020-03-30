@@ -1,0 +1,9 @@
+.fit-image{
+    width: 50%;
+    object-fit: cover;
+    height: auto; 
+}
+  
+.centre {
+    text-align: center
+  }
