@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FilterPipe } from './filter.pipe'
+import { Component, OnInit, Input, ChangeDetectionStrategy, ComponentFactoryResolver } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +8,28 @@ import { FilterPipe } from './filter.pipe'
 
 export class AppComponent implements OnInit{
   title = 'movie-listings';
-  searchText;
 
-  constructor() {
-    var data = this.httpGet("https://api.themoviedb.org/4/list/1?api_key=dea94f82d808e85759059b08ab481c70");
-    var results = JSON.parse(data)
-    console.log(results.results[0].title);
-    // var searchText = document.getElementById("input1");
-    // var searchText=document.getElementById("input1").nodeValue;
+  current = 1;
+  prevexists = false;
+
+  source = "https://api.themoviedb.org/4/list/1?api_key=dea94f82d808e85759059b08ab481c70&&page=";
+  search_src = "https://api.themoviedb.org/4/search/movie?api_key=dea94f82d808e85759059b08ab481c70&query="
+  final = [];
+
+  searchText = '';
+
+  issearch = false;
+  prevfin = [];
+  prevcur = 1;
+
+  constructor(){
+    var data = this.httpGet(this.source + this.current.toString());
+    this.final = JSON.parse(data).results;
+    this.prevfin = this.final;
+    this.get_full_list();
+  }
+
+  ngOnInit(): void {
   }
 
   httpGet(theUrl)
@@ -27,13 +40,93 @@ export class AppComponent implements OnInit{
       return xmlHttp.responseText;
   }
 
-  ngOnInit(): void {
+  prev(){
+    if(this.issearch){
+      this.issearch = false;
+      this.current = this.prevcur;
+      this.final = this.prevfin;
+      return;
+    }
+
+    if (!this.prevexists){
+      console.log("do nothing");
+      return;
+    }
+
+    this.current = this.current - 1;
+    var data = this.httpGet(this.source + this.current.toString());
+    this.final = JSON.parse(data).results;
+
+    if (this.current == 1){
+      this.prevexists = false;
+    }
+
+    console.log(this.final[0].title);
+
   }
 
-  p: number = 1;
-  data = this.httpGet("https://api.themoviedb.org/4/list/1?api_key=dea94f82d808e85759059b08ab481c70");
-  results = JSON.parse(this.data).results;
-  // searchText = document.getElementById("input1").nodeValue;
-  // final = FilterPipe.caller(this.results, this.searchText);
+  next(){
+    if(this.issearch){
+      this.issearch = false;
+      this.current = this.prevcur;
+      this.final = this.prevfin;
+      return;
+    }
+
+    this.prevexists = true;
+    this.current = this.current + 1;
+    var data = this.httpGet(this.source + this.current.toString());
+    var temp = JSON.parse(data).results;
+    if (temp.length == 0){
+      this.current = this.current - 1;
+      console.log("do nothing");
+      return;
+    }
+
+    this.final = temp;
+
+    console.log(this.final[0].title);
+  }
+
+  full_list = []
+
+  search(){
+    this.issearch = true;
+    this.prevcur = this.current;
+    this.prevfin = this.final;
+
+    var s = this.searchText;
+    console.log(s);
+    if (s == null){
+        return;
+    }
+
+    var data = this.httpGet(this.search_src + s);
+    var temp = JSON.parse(data).results;
+
+    if(temp.length == 0){
+      console.log("do nothing");
+      return;
+    }
+
+    this.final = temp;
+
+    console.log(this.final[0].title);
+  }
+
+  get_full_list(){
+    var i = 1;
+    var data = this.httpGet(this.source + i.toString());
+    var temp = JSON.parse(data).results;
+
+    while(temp.length != 0){
+      this.full_list.concat(temp);
+      i = i + 1;
+      data = this.httpGet(this.source + i.toString());
+      temp = JSON.parse(data).results;
+    }
+
+    console.log(this.full_list);
+  }
 
 }
