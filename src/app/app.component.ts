@@ -28,7 +28,6 @@ export class AppComponent implements OnInit{
     var data = this.httpGet(this.source + this.current.toString());
     this.final = JSON.parse(data).results;
     this.prevfin = this.final;
-    this.get_full_list();
   }
 
   ngOnInit(): void {
@@ -92,8 +91,6 @@ export class AppComponent implements OnInit{
     console.log(this.final[0].title);
   }
 
-  full_list = []
-
   search(){
 
     if(!this.issearch){
@@ -122,20 +119,4 @@ export class AppComponent implements OnInit{
 
     console.log(this.final[0].title);
   }
-
-  get_full_list(){
-    var i = 1;
-    var data = this.httpGet(this.source + i.toString());
-    var temp = JSON.parse(data).results;
-
-    while(temp.length != 0){
-      this.full_list.concat(temp);
-      i = i + 1;
-      data = this.httpGet(this.source + i.toString());
-      temp = JSON.parse(data).results;
-    }
-
-    console.log(this.full_list);
-  }
-
 }
