@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
   issearch = false;
   prevfin = [];
   prevcur = 1;
-  
+
   info = "";
 
   constructor(){
@@ -95,9 +95,12 @@ export class AppComponent implements OnInit{
   full_list = []
 
   search(){
-    this.issearch = true;
-    this.prevcur = this.current;
-    this.prevfin = this.final;
+
+    if(!this.issearch){
+      this.issearch = true;
+      this.prevcur = this.current;
+      this.prevfin = this.final;
+    }
 
     var s = this.searchText;
     console.log(s);
@@ -114,8 +117,8 @@ export class AppComponent implements OnInit{
     }
 
     this.final = temp;
-    
-    this.info = "All results displayed, pressing next or previous will result in resetting to state before search!";
+
+    this.info = "All results displayed! Pressing next or previous will result in resetting to state before search!";
 
     console.log(this.final[0].title);
   }
