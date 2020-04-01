@@ -21,6 +21,8 @@ export class AppComponent implements OnInit{
   issearch = false;
   prevfin = [];
   prevcur = 1;
+  
+  info = "";
 
   constructor(){
     var data = this.httpGet(this.source + this.current.toString());
@@ -45,6 +47,7 @@ export class AppComponent implements OnInit{
       this.issearch = false;
       this.current = this.prevcur;
       this.final = this.prevfin;
+      this.info = "";
       return;
     }
 
@@ -70,6 +73,7 @@ export class AppComponent implements OnInit{
       this.issearch = false;
       this.current = this.prevcur;
       this.final = this.prevfin;
+      this.info = "";
       return;
     }
 
@@ -110,6 +114,8 @@ export class AppComponent implements OnInit{
     }
 
     this.final = temp;
+    
+    this.info = "All results displayed, pressing next or previous will result in resetting to state before search!";
 
     console.log(this.final[0].title);
   }
