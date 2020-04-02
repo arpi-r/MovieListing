@@ -4,12 +4,11 @@
 
 <div class="input-group">
     <input id="input1" [(ngModel)]="searchText" placeholder="Enter movie" class="form-control" type="text" nodeValue=""/> 
-    <button (click)="search()" class="btn btn-dark">Search!</button>
 </div>
 <br>
 <div *ngIf="final">
     <div class="card-deck cd align-item-center md-2 sm-2 lg-2 xs-2">
-        <div class="card" *ngFor="let r of final" class="centre  col-md-3 col-sm-4 col-lg-2 col-xs-6 cd" >
+        <div class="card" *ngFor="let r of final | filter:searchText" class="centre  col-md-3 col-sm-4 col-lg-2 col-xs-6 cd" >
             <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{r.poster_path}}" alt="No poster found!" class="img-fluid img-thumbnail">
             <div class="card-body border">
               <h5 class="card-title">{{r.title}}</h5>
